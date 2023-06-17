@@ -7,5 +7,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("users/", include("users.urls")),
+    path("learn/", include("courses.urls")),
     path("", TemplateView.as_view(template_name="landing.html"), name="landing"),
 ]

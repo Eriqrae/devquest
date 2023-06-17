@@ -36,6 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "theclassroom.onrender.com",
+    "127.0.0.1",
 ]
 
 
@@ -55,7 +56,6 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     # Apps
     "users",
-    "core",
     "courses",
 ]
 
@@ -81,6 +81,8 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://theclassroom.onrender.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -89,6 +91,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://theclassroom.onrender.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -118,7 +122,7 @@ TEMPLATES = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "core/static"),
+    os.path.join(BASE_DIR, "users/static"),
 ]
 
 WSGI_APPLICATION = "classroom.wsgi.application"

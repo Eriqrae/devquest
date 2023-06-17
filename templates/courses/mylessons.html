@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}My Lessons{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-2">
+        <div class="col">
+            <h5>
+                Lessons
+            </h5>
+        </div>
+        <div class="col">
+            <p class="text-end">
+                <a class="border rounded bg-success p-2 text-white text-decoration-none"
+                    href="{%url 'courses:lessons-create'%}">Create Lesson</a>
+            </p>
+        </div>
+    </div>
+    <div class="border rounded p-2 bg-info text-black mb-2 mt-2">
+        <h6>About Lessons</h6>
+        <p>
+            Lessons are comprised of several resources. Lessons make a module or unit. They help
+            the student achieve a certain part of the module
+        </p>
+    </div>
+    <hr>
+    {% if lessons %}
+    <p>
+        You currently have {{lessons|length}} {% if lessons|length > 1 %}lessons{% else %}lesson{%endif%}.
+    </p>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <th>Topic</th>
+                    <th>Objectives</th>
+                    <th>Resources</th>
+                    <th>Action</th>
+                </thead>
+                {% for lesson in lessons %}
+                <tbody>
+                    <tr>
+                        <td>
+                            {{lesson.topic}}
+                        </td>
+                        <td>
+                            {{lesson.objectives}}
+                        </td>
+                        <td>
+                            {% for resource in lesson.resources.all %}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="{% url 'courses:resources-detail' resource.id %}"
+                                        target="_blank">{{resource.name}}</a>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a class="btn btn-primary border p-2" href="{% url 'courses:lessons-update' lesson.id %}"><i
+                                    class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger border p-2" href="{% url 'courses:lessons-delete' lesson.id %}">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                            <a class="btn btn-primary border p-2" href="{% url 'courses:lessons-detail' lesson.id %}">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-start border rounded w-100 p-3 bg-warning text-dark ">
+        No lessons yet!!!
+    </p>
+    {% endif %}
+</div>
+{%endblock%}

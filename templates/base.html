@@ -97,28 +97,28 @@
                             {% if user.is_student or user.is_supervisor %}
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" aria-current="page"
-                                    href="">Units</a>
+                                    href="{% url 'courses:unit-list' %}">Units</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2"
-                                    href="">Lessons</a>
+                                    href="{% url 'courses:lessons-list' %}">Lessons</a>
                             </li>
                             {% elif user.is_teacher or user.is_supervisor %}
                             <li class="nav-item">
-                                <a class="nav-link border w-100 rounded mb-2" href="">My
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'courses:my-units' %}">My
                                     Units</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link border w-100 rounded mb-2" href="">My
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'courses:mylessons' %}">My
                                     Lessons</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link border w-100 rounded mb-2" href="">My
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'courses:myresources' %}">My
                                     Resources</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2"
-                                    href="">Other Lessons</a>
+                                    href="{% url 'courses:lessons-list' %}">Other Lessons</a>
                             </li>
                             {% elif user.is_supervisor or user.is_staff %}
                             <li class="nav-item">

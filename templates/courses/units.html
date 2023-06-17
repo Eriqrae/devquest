@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Units{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h5>
+        Courses in the database
+    </h5>
+    <div class="border rounded p-2 bg-info text-black mb-2 mt-2">
+        <h6>About Courses</h6>
+        <p>
+            Courses are made up of lessons that teach a specific skill.
+        </p>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <th>Name</th>
+                    <th>Duration</th>
+                    <th>Lessons</th>
+                    <th>Instructor</th>
+                </thead>
+                {% for unit in unit_list %}
+                <tbody>
+                    <tr>
+                        <td>{{unit.name}}</td>
+                        <td>{{unit.duration}}</td>
+                        <td>
+                            {% for lesson in unit.lessons.all %}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="{% url 'courses:lessons-detail' lesson.id %}" target="_blank">{{lesson.topic}}</a>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{unit.created_by.get_full_name}}
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Resources{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h5>
+        Resources
+    </h5>
+    <p>Click on the <strong>resource name</strong> to see the notes</p>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Links</th>
+                    </tr>
+                </thead>
+                {% for resource in resources_list %}
+                <tbody>
+                    <tr>
+                        <td>
+                            <a target="_blank" href={{resource.course_notes.url}}>{{resource.name}}</a>
+                        </td>
+
+                        {% if resource.link_one or resource.link_two or resource.link_three %}
+                        <td>
+                            <ul class="list-group list-group-flush">
+                                {% if resource.link_one %}
+                                <li class="list-group-item">
+                                    <a href="{{resource.link_one}}" target="_blank">
+                                        Link 1
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                {% if resource.link_two %}
+                                <li class="list-group-item">
+                                    <a href="{{resource.link_two}}" target="_blank">Link 2</a>
+                                </li>
+                                {% endif %}
+
+                                {% if resource.link_three %}
+                                <li class="list-group-item">
+                                    <a href="{{resource.link_three}}" target="_blank">
+                                        Link 3
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        {% else %}
+                        <td>No link set</td>
+                        {% endif %}
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+{% endblock %}
