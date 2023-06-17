@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}{{resources.name}} - details{% endblock %}
+
+{% block content %}
+<div class="container w-50">
+    <h3 class="mt-3">Details about {{resources.name}}</h3>
+    <hr>
+    <h5>
+        Name
+    </h5>
+    <p>
+        {{resources.name}}
+    </p>
+    <h5>
+        Notes <a target="_blank" href="{{resources.course_notes.url}}">here</a>
+    </h5>
+    <h5>Links</h5>
+    <div>
+        <ul class="list-group list-group-flush">
+            {% if resources.link_one %}
+            <li class="list-group-item">
+                <a href="{{resources.link_one}}" target="_blank">
+                    Link 1
+                </a>
+            </li>
+            {% endif %}
+        
+            {% if resources.link_two %}
+            <li class="list-group-item">
+                <a href="{{resources.link_two}}" target="_blank">Link 2</a>
+            </li>
+            {% endif %}
+        
+            {% if resources.link_three %}
+            <li class="list-group-item">
+                <a href="{{resources.link_three}}" target="_blank">
+                    Link 3
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{%endblock%}

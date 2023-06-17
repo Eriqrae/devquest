@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Lessons{% endblock %}
+
+{% block content %}
+<div class="container">
+    
+    {% if user.is_teacher %}
+    <h5>
+        Other Instructor's Lessons
+    </h5>
+    {% elif user.is_student %}
+    <h5>
+        Lessons
+    </h5>
+    {% endif %}
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Objectives</th>
+                        <th>Resources & Notes</th>
+                        <th>Instructor</th>
+                    </tr>
+                </thead>
+                {% for lesson in lesson_list %}
+                {{lesson.name}}
+                <tbody>
+                    <tr>
+                        <td>
+                            {{lesson.topic}}
+                        </td>
+                        <td>
+                            {{lesson.objectives}}
+                        </td>
+                        <td>
+                            {% for resource in lesson.resources.all %}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="{% url 'courses:resources-detail' resource.id %}"
+                                        target="_blank">{{resource.name}}</a>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{lesson.created_by.get_full_name}}
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

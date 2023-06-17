@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Update {{lesson.topic}}{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-6 mx-auto">
+        <h3 class="mt-2">Update a Lesson</h3>
+        <form action="." method="post">
+            {% csrf_token %}
+            <div class="form-floating">
+                {{ form.topic|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.objectives|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.resources|as_crispy_field }}
+            </div>
+            <button class="btn btn-primary" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

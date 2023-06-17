@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Update - {{resource.name}}{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-6 mx-auto">
+        <h3 class="mt-2">Update - {{resource.name}}</h3>
+        <form enctype="multipart/form-data" action="." method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="form-floating">
+                        {{form.name|as_crispy_field}}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-floating">
+                        {{form.link_one|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+        
+            <div class="row">
+                <div class="col form-floating">
+                    {{form.link_two|as_crispy_field}}
+                </div>
+                <div class="col form-floating">
+                    {{form.link_three|as_crispy_field}}
+                </div>
+            </div>
+            <div class="form-floating">
+                {{form.course_notes|as_crispy_field}}
+            </div>
+            <button class="btn btn-primary" type="submit">Update</button>
+            <a class="btn btn-info" href="{% url 'courses:resources-list' %}">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

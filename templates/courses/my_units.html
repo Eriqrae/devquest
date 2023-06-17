@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Units{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-2">
+        <div class="col">
+            <h5>
+                Your Units
+            </h5>
+        </div>
+        <div class="col">
+            <p class="text-end">
+                <a class="border rounded bg-success p-2 text-white text-decoration-none"
+                    href="{%url 'courses:unit-create'%}">Create Unit</a>
+            </p>
+        </div>
+    </div>
+    <hr>
+    {% if units %}
+    <p>
+        You currently have {{units|length}} {% if units|length > 1 %}units{% else %}unit{%endif%}.
+    </p>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <th>Name</th>
+                    <th>Duration</th>
+                    <th>Lessons</th>
+                    <th>Action</th>
+                </thead>
+                {% for unit in units %}
+                <tbody>
+                    <tr>
+                        <td>{{unit.name}}</td>
+                        <td>{{unit.duration}}</td>
+                        <td>
+                            {% for lesson in unit.lessons.all %}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="{% url 'courses:lessons-detail' lesson.id %}"
+                                        target="_blank">{{lesson.topic}}</a>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a class="btn btn-primary border p-2" href="{% url 'courses:unit-update' unit.id %}"><i
+                                    class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger border p-2" href="{% url 'courses:unit-delete' unit.id %}">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                            <a class="btn btn-primary border p-2" href="{% url 'courses:unit-detail' unit.id %}">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<p class="text-start border rounded w-100 p-3 bg-info text-dark ">
+    No units yet
+</p>
+{% endif %}
+</div>
+
+{% endblock %}

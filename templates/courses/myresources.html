@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block title %}My Resources{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row mt-2">
+        <div class="col">
+            <h5>
+                Resources
+            </h5>
+        </div>
+        <div class="col">
+            <p class="text-end">
+                <a class="border rounded bg-success p-2 text-white text-decoration-none"
+                    href="{%url 'courses:resources-create'%}">Create Resource</a>
+            </p>
+        </div>
+    </div>
+
+    <div class="border rounded p-2 bg-info text-black mb-2 mt-2">
+        <h6>About Resources</h6>
+        <p>
+            Resources help you structure your Lessons. You can create a resource or resources for
+            a lesson. Students will be able to see these resources when they are on a specific lesson.
+        </p>
+    </div>
+    <hr>
+    {% if resources %}
+    <p>
+        You currently have {{resources|length}} {% if resources|length > 1 %}resources{% else %}resource{%endif%}.
+    </p>
+
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Links</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                {% for resource in resources %}
+                <tbody>
+                    <tr>
+                        <td>
+                            <a target="_blank" href={{resource.course_notes.url}}>{{resource.name}}</a>
+                        </td>
+
+                        {% if resource.link_one or resource.link_two or resource.link_three %}
+                        <td>
+                            <ul class="list-group list-group-flush">
+                                {% if resource.link_one %}
+                                <li class="list-group-item">
+                                    <a href="{{resource.link_one}}" target="_blank">
+                                        Link 1
+                                    </a>
+                                </li>
+                                {% endif %}
+
+                                {% if resource.link_two %}
+                                <li class="list-group-item">
+                                    <a href="{{resource.link_two}}" target="_blank">Link 2</a>
+                                </li>
+                                {% endif %}
+
+                                {% if resource.link_three %}
+                                <li class="list-group-item">
+                                    <a href="{{resource.link_three}}" target="_blank">
+                                        Link 3
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        {% else %}
+                        <td>No link set</td>
+                        {% endif %}
+                        <td>
+                            <a class="btn btn-primary border p-2"
+                                href="{% url 'courses:resources-update' resource.id %}"><i
+                                    class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger border p-2"
+                                href="{% url 'courses:resources-delete' resource.id %}">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                            <a class="btn btn-primary border p-2"
+                                href="{% url 'courses:resources-detail' resource.id %}">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-start border rounded w-100 p-3 bg-warning text-dark ">
+        No resources yet!!!
+    </p>
+    {% endif %}
+</div>
+{% endblock %}
