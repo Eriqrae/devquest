@@ -18,6 +18,7 @@ import cloudinary
 import cloudinary.api
 import cloudinary.uploader
 import os
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "classroom.settings")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     # Apps
     "users",
     "core",
+    "courses",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
