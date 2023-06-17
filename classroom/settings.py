@@ -33,7 +33,9 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "theclassroom.onrender.com",
+]
 
 
 # Application definition
@@ -76,7 +78,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://user-app-hvr7.onrender.com",
+    "https://theclassroom.onrender.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -84,8 +86,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://user-app-hvr7.onrender.com",
-    "https://user-bend-production.up.railway.app",
+    "https://theclassroom.onrender.com",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
