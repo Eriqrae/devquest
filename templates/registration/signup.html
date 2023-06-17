@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+
+{% block content %}
+
+<div class="container p-3">
+    <h2 class="text-center mb-4">Sign up for a free account</h2>
+    <div class="accordion col-md-10 mx-auto col-lg-5 mb-3 border rounded p-4 bg-secondary" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="false" aria-controls="collapseOne">
+                    Student account
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>By creating a student account, you'll unlock a world of educational
+                        opportunities and personalized learning experiences.</p>
+
+                    <a href="" class="btn btn-primary">Create a Student account</a>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Instructor Account
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>
+                        By creating an instructor account, you'll be able to create learning modules, track students
+                        progress and many more.
+                    </p>
+                    <a href="{% url 'users:teacher-signup' %}" class="btn btn-success">Create an Instructor Account</a><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

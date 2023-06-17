@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<div class="cover-container w-100 h-100 p-3 mx-auto d-flex flex-column">
+    <main class="px-3">
+        <h1 class="text-center ">The Classroom</h1>
+        <p class="lead text-center">
+            <strong><em>Providing Solutions: one person, one business, one
+                    company, one organization at a time.</em></strong><br>
+            Welcome to our cutting-edge online tech classroom! Step into a virtual world where knowledge meets
+            innovation, and
+            embark on a transformative learning journey. Our online tech classroom is meticulously designed to provide
+            an immersive
+            and interactive experience, bringing the wonders of technology right to your fingertips. <br>
+            Join our online tech classroom today and unlock your full potential in the world of technology. Prepare to
+            be inspired,
+            equipped, and empowered to thrive in the digital age, as you connect with like-minded individuals and embark
+            on an
+            exciting educational adventure like no other. <br>
+            Accessibility and flexibility are at the core of our online tech classroom. With 24/7 access, you can learn
+            at your own
+            pace and from the comfort of your preferred learning environment. Seamlessly switch between devices, whether
+            it's your
+            computer, tablet, or smartphone, ensuring that learning fits seamlessly into your busy schedule.
+        </p>
+        <p class="lead text-center">
+            <a href="{% url 'login' %}" class="btn btn-lg btn-primary fw-bold border-white text-center">Get Started</a>
+        </p>
+    </main>
+</div>
+{% endblock %}
