@@ -182,6 +182,7 @@ EMAIL_HOST_PASSWORD = config("SENDGRID_API_KEY", "")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USER = config("EMAIL_USER", "")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", "")
 
 cloudinary.config(
     cloud_name=config("CLOUDINARY_NAME"),

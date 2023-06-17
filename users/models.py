@@ -59,3 +59,25 @@ class Teacher(TimeStampedModel):
 
     def __str__(self) -> str:
         return self.user.first_name
+
+
+class Student(TimeStampedModel):
+    user = models.OneToOneField(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name="student",
+    )
+    image = CloudinaryField("student_image")
+    phonenumber = models.BigIntegerField(default=0, blank=False)
+    about = models.TextField(blank=True, null=True)
+
+
+class Supervisor(TimeStampedModel):
+    user = models.OneToOneField(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name="supervisor",
+    )
+    phonenumber = models.BigIntegerField(default=0, blank=False)
