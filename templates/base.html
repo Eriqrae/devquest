@@ -46,14 +46,16 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown">Student</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'users:student-profile' user.id %}">My
+                                        Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Account Details</a></li>
                             </ul>
                             {% elif user.is_teacher %}
                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown">Teacher</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'users:teacher-profile' user.id %}">My
+                                        Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Account Details</a></li>
                             </ul>
                             {% elif user.is_supervisor %}
@@ -61,7 +63,8 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown">Supervisor</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                                <li><a class="dropdown-item" href="">My
+                                        Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Account Details</a></li>
                             </ul>
                             {% endif %}
