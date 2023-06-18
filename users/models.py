@@ -52,7 +52,7 @@ class Teacher(TimeStampedModel):
         primary_key=True,
         related_name="teacher",
     )
-    image = CloudinaryField("teacher_image")
+    image = CloudinaryField("teacher_image", blank=True, null=True)
     phonenumber = models.BigIntegerField(default=0, blank=False)
     about = models.TextField(blank=True, null=True)
     qualifications = models.CharField(max_length=200, blank=True, null=True)
@@ -68,7 +68,7 @@ class Student(TimeStampedModel):
         primary_key=True,
         related_name="student",
     )
-    image = CloudinaryField("student_image")
+    image = CloudinaryField("student_image", blank=True, null=True)
     phonenumber = models.BigIntegerField(default=0, blank=False)
     about = models.TextField(blank=True, null=True)
 

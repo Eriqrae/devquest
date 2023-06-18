@@ -38,7 +38,7 @@
                             {% endfor %}
                         </td>
                         <td>
-                            {{unit.created_by.get_full_name}}
+                            <a href="{% url 'users:teacher-profile' unit.created_by.id %}">{{unit.created_by.get_full_name}}</a>
                         </td>
                     </tr>
                 </tbody>

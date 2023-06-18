@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{teacher.user.get_full_name}}{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-10 mx-auto">
+        <h3 class="mt-2">Update your profile</h3>
+        <form enctype="multipart/form-data" action="" method="post">
+            {% csrf_token %}
+            <div class="form-floating">
+                {{ form.phonenumber|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.image|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.qualifications|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.about|as_crispy_field }}
+            </div>
+            <button class="btn btn-primary" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
