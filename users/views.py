@@ -81,7 +81,9 @@ class TeacherDetailView(LoginRequiredMixin, DetailView):
     template_name = "users/teacher_profile.html"
 
 
-class TeacherUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
+class TeacherUpdateView(
+    SuccessMessageMixin, UserPassesTestMixin, LoginRequiredMixin, UpdateView
+):
     """Teacher updates profile"""
 
     model = Teacher
@@ -92,10 +94,17 @@ class TeacherUpdateView(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
         "qualifications",
     ]
     template_name = "users/teacher_update.html"
-    success_url = reverse_lazy("users:dashboard")
+    success_message = "Profile Updated Successfully"
 
     def test_func(self):
         return self.request.user.is_staff
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("users:teacher-profile", kwargs={"pk": self.object.pk})
 
 
 class TeacherDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
@@ -147,7 +156,16 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
         "about",
     ]
     template_name = "users/student_update.html"
-    success_url = reverse_lazy("users:dashboard")
+
+    def test_func(self):
+        return self.request.user.is_teacher
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("users:student-profile", kwargs={"pk": self.object.pk})
 
 
 class StudentDeleteView(LoginRequiredMixin, DeleteView):

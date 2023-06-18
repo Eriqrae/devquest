@@ -38,12 +38,12 @@ urlpatterns = [
         "delete/<str:pk>/student/", StudentDeleteView.as_view(), name="student-delete"
     ),
     path(
-        "profile/<str:pk>/teacher/", TeacherDetailView.as_view(), name="teacher-profile"
+        "teacher/<str:pk>/profile/", TeacherDetailView.as_view(), name="teacher-profile"
     ),
     path(
-        "update/<str:pk>/teacher/", TeacherUpdateView.as_view(), name="teacher-update"
+        "teacher/<str:pk>/update/", TeacherUpdateView.as_view(), name="teacher-update"
     ),
     path(
-        "delete/<str:pk>/teacher/", TeacherDeleteView.as_view(), name="teacher-delete"
+        "teacher/<str:pk>/delete/", TeacherDeleteView.as_view(), name="teacher-delete"
     ),
 ]
