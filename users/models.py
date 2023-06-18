@@ -72,6 +72,9 @@ class Student(TimeStampedModel):
     phonenumber = models.BigIntegerField(default=0, blank=False)
     about = models.TextField(blank=True, null=True)
 
+    def __str__(self) -> str:
+        return self.user.first_name
+
 
 class Supervisor(TimeStampedModel):
     user = models.OneToOneField(
