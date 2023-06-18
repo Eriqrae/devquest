@@ -1,0 +1,18 @@
+<h3>{{ task.title }}</h3>
+<p>{{ task.description }}</p>
+<p>Status: {{ task.status }}</p>
+{% if task.status == 'submitted' %}
+<h4>Submissions:</h4>
+{% for submission in task.tasksubmission_set.all %}
+<p>Submitted by: {{ submission.student.email }}</p>
+<p>Submitted at: {{ submission.submitted_at }}</p>
+{% if submission.is_approved %}
+<p>Status: Approved</p>
+{% else %}
+<p>Status: Disapproved</p>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if task.status == 'pending' %}
+<a href="{% url 'tasks:task-submission-create' task.pk %}">Submit Task</a>
+{% endif %}

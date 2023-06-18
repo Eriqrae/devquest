@@ -1,0 +1,16 @@
+{% for submission in submissions %}
+<h3>Task Submission Details</h3>
+<p>Submitted by: {{ submission.student.email }}</p>
+<p>Submitted at: {{ submission.submitted_at }}</p>
+<p>Status: {% if submission.is_approved %}Approved{% elif submission.is_disapproved %}Disapproved{% else %}Pending{% endif %}</p>
+{% if not submission.is_approved and not submission.is_disapproved %}
+<form method="post" action="{% url 'tasks:task-submission-approve' submission.id %}">
+    {% csrf_token %}
+    <button type="submit">approve</button>
+</form>
+<form method="post" action="{% url 'tasks:task-submission-disapprove' submission.id %}">
+    {% csrf_token %}
+    <button type="submit">disapprove</button>
+</form>
+{% endif %}
+{% endfor %}

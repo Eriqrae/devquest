@@ -101,6 +101,9 @@
                         <ul class="nav flex-column">
                             {% if user.is_student or user.is_supervisor %}
                             <li class="nav-item">
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:task-list' %}">Tasks</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" aria-current="page"
                                     href="{% url 'courses:unit-list' %}">Units</a>
                             </li>
@@ -109,6 +112,12 @@
                                     href="{% url 'courses:lessons-list' %}">Lessons</a>
                             </li>
                             {% elif user.is_teacher or user.is_supervisor %}
+                            <li class="nav-item">
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:task-list' %}">Tasks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:task-submission-list' %}">Submitted Tasks</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" href="{% url 'courses:my-units' %}">My
                                     Units</a>
