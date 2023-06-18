@@ -15,13 +15,13 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
 )
 from django.urls import reverse_lazy
+from django.contrib.auth import get_user_model
 
 
 from users.forms import TeacherCreationForm, StudentCreationForm, SupervisorCreationForm
 from users.models import Teacher, Student
 
-from classroom.settings import AUTH_USER_MODEL
-
+User = get_user_model()
 
 @login_required
 def dashboard(request):
@@ -31,7 +31,7 @@ def dashboard(request):
 class UserListView(UserPassesTestMixin, ListView, LoginRequiredMixin):
     """admin sees all users"""
 
-    model = AUTH_USER_MODEL
+    model = User
     template_name = "users/users_list.html"
 
     def test_func(self):
@@ -41,7 +41,7 @@ class UserListView(UserPassesTestMixin, ListView, LoginRequiredMixin):
 class UserDetailView(UserPassesTestMixin, DetailView):
     """details on specific users"""
 
-    model = AUTH_USER_MODEL
+    model = User
     template_name = "users/user_detail.html"
 
     def test_func(self):
@@ -53,7 +53,7 @@ class SignUpView(TemplateView):
 
 
 class TeacherSignUpView(SuccessMessageMixin, CreateView):
-    model = AUTH_USER_MODEL
+    model = User
     form_class = TeacherCreationForm
     template_name = "registration/signup_form.html"
     success_message = "Account Created"
@@ -110,7 +110,7 @@ class TeacherUpdateView(
 class TeacherDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
     """Teacher deletes their profile"""
 
-    model = AUTH_USER_MODEL
+    model = User
     template_name = "users/teacher_delete.html"
     success_url = reverse_lazy("login")
 
@@ -119,7 +119,7 @@ class TeacherDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
 
 
 class StudentSignUpView(SuccessMessageMixin, CreateView):
-    model = AUTH_USER_MODEL
+    model = User
     form_class = StudentCreationForm
     template_name = "registration/signup_form.html"
     success_message = "Account Created"
@@ -171,13 +171,13 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
 class StudentDeleteView(LoginRequiredMixin, DeleteView):
     """student deletes their profile"""
 
-    model = AUTH_USER_MODEL
+    model = User
     template_name = "users/student_delete.html"
     success_url = reverse_lazy("login")
 
 
 class SupervisorSignUpView(SuccessMessageMixin, CreateView):
-    model = AUTH_USER_MODEL
+    model = User
     form_class = SupervisorCreationForm
     template_name = "registration/signup_form.html"
     success_message = "Account Created"

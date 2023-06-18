@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Account: {{user.get_full_name}}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="w-50 mx-auto">
+        <h5>Your Details</h5>
+        <p>
+            <strong>Name: </strong>{{user.get_full_name}}
+        </p>
+        <p>
+            <strong>Email: </strong>{{user.email}}
+        </p>
+
+        <form action="." method="post">
+            {%csrf_token%}
+            <input type="submit" value="Delete Account" class="btn btn-danger border p-2">
+        </form>
+    </div>
+</div>
+{% endblock %}
