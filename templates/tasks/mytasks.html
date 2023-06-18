@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-2">
+        <div class="col">
+            <h5>
+                Tasks created for students
+            </h5>
+        </div>
+        <div class="col">
+            <p class="text-end">
+                <a class="border rounded bg-success p-2 text-white text-decoration-none"
+                    href="{%url 'tasks:task-create'%}">Create Task</a>
+            </p>
+        </div>
+    </div>
+    <hr>
+    {% if tasks %}
+    <p>
+        You currently have {{tasks|length}} {% if units|length > 1 %}units{% else %}unit{%endif%}.
+    </p>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Document</th>
+                    <th>Task Link</th>
+                    <th>Actions</th>
+                </thead>
+                {% for task in tasks %}
+                <tbody>
+                    <tr>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+
+                        {% if task.document %}
+                        <td>
+                            <a href="{{task.document.url}}">Task</a>
+                        </td>
+                        {% else %}
+                        <td>No external document</td>
+                        {% endif %}
+
+                        {% if task.task_link %}
+                        <td>
+                            <a href="{{task.task_link}}">Task</a>
+                        </td>
+                        {% else %}
+                        <td>No external link</td>
+                        {% endif %}
+
+                        <td>
+                            <a class="btn btn-primary border p-2" href=""><i class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-danger border p-2" href="">
+                                <i class="bi bi-trash3"></i>
+                            </a>
+                            <a class="btn btn-primary border p-2" href="">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-start border rounded w-100 p-3 bg-info text-dark ">
+        No units yet
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

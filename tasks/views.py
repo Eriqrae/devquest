@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from tasks.models import Task, TaskSubmission
-from courses.decorators import student_required
+from courses.decorators import student_required, teacher_required
 from tasks.forms import TaskSubmissionForm
 
 
@@ -24,10 +24,11 @@ def task_list(request):
     return render(request, "tasks/task_list.html", context)
 
 
-class TaskListView(LoginRequiredMixin, ListView):
-    model = Task
-    template_name = "tasks/mytasks.html"
-    context_object_name = "tasks"
+@login_required
+@teacher_required
+def mytasks(request):
+    tasks = Task.objects.filter(created_by=request.user)
+    return render(request, "tasks/mytasks.html", {"tasks": tasks})
 
 
 class TaskCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
@@ -40,7 +41,7 @@ class TaskCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     ]
     template_name = "tasks/task_create.html"
     success_message = "Task Created"
-    success_url = reverse_lazy("tasks:task-list")
+    success_url = reverse_lazy("tasks:mytasks")
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
