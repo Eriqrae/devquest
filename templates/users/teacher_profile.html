@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{teacher.user.get_full_name}}{% endblock %}
+
+{% block content %}
+<div class="container p-3">
+    <div class="w-50 mx-auto">
+        <h5>Teacher Info</h5>
+        {% if teacher.image %}
+        <img class="rounded-circle border" style="width: 100px; height: 100px;" src="{{teacher.image.url}}" alt="">
+        {% endif %}
+        <p>
+            <strong>Name: </strong>{{teacher.user.get_full_name}}
+        </p>
+        <p>
+            <strong>Contact: </strong>{{teacher.phonenumber}}
+        </p>
+        <p>
+            <strong>Qualifications: </strong>{{teacher.qualifications}}
+        </p>
+        <p>
+            <strong>About: </strong>{{teacher.about}}
+        </p>
+        {% if request.user == teacher.user %}
+        <div class="row">
+            <div class="col">
+                <p>
+                    <a class="btn btn-primary border p-2" href="{% url 'users:teacher-update' user.id %}">Update</a>
+                </p>
+            </div>
+            <div class="col">
+                <p>
+                    <a class="btn btn-danger border p-2" href="{% url 'users:teacher-delete' user.id %}">Delete</a>
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
