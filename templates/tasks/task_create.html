@@ -1,5 +1,29 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Task</button>
-</form>
+{% extends 'base.html' %}
+
+{% block title %}Create Task{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-10 mx-auto">
+        <h3 class="mt-2">Create a task</h3>
+        <form enctype="multipart/form-data" action="" method="post">
+            {% csrf_token %}
+            <div class="form-floating">
+                {{ form.title|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.description|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.document|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.task_link|as_crispy_field }}
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Create Task</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

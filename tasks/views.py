@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -83,9 +83,8 @@ def task_submission_create(request, task_id):
         messages.error(request, "You have already submitted this task.")
         return redirect("tasks:task-list")
 
-    form = TaskSubmissionForm(request.POST or None)
-
     if request.method == "POST":
+        form = TaskSubmissionForm(request.POST, request.FILES)
         if form.is_valid():
             submission = form.save(commit=False)
             submission.task = task
@@ -98,6 +97,9 @@ def task_submission_create(request, task_id):
 
             messages.success(request, "Task submitted successfully.")
             return redirect("tasks:task-list")
+        
+    else:
+        form = TaskSubmissionForm()
 
     context = {
         "task": task,
@@ -107,38 +109,25 @@ def task_submission_create(request, task_id):
     return render(request, "tasks/task_submission_create.html", context)
 
 
-# class TaskSubmissionApproveView(UserPassesTestMixin, LoginRequiredMixin, DetailView):
-#     model = TaskSubmission
-#     template_name = "tasks/task_submission_approve.html"
-#     context_object_name = "submission"
-
-#     def test_func(self):
-#         return self.request.user == self.get_object().task.created_by
-
-#     def get_success_url(self):
-#         return "tasks:tasks"
-
-#     def approve_submission(self):
-#         submission = self.get_object()
-#         submission.is_approved = True
-#         submission.task.status = "approved"
-#         submission.task.save()
-#         submission.save()
-#         return redirect(self.get_success_url())
-
-#     def disapprove_submission(self):
-#         submission = self.get_object()
-#         submission.is_approved = False
-#         submission.task.status = "disapproved"
-#         submission.task.save()
-#         submission.save()
-#         return redirect(self.get_success_url())
-
-
-class TaskSubmissionListView(ListView):
+class TaskSubmissionListView(LoginRequiredMixin, ListView):
     model = TaskSubmission
     template_name = "tasks/task_submission_list.html"
     context_object_name = "submissions"
+
+    def get_queryset(self):
+        # Only fetch the task submissions for the tasks created by the logged-in teacher
+        return TaskSubmission.objects.filter(task__created_by=self.request.user)
+
+
+class TaskSubmissionDetailView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = TaskSubmission
+    fields = [
+        "is_approved",
+    ]
+    template_name = "tasks/submission_detail.html"
+    context_object_name = "submission"
+    success_message = "Submission Approved"
+    success_url = reverse_lazy("tasks:task-submission-list")
 
     def get_queryset(self):
         # Only fetch the task submissions for the tasks created by the logged-in teacher

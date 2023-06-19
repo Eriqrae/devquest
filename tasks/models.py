@@ -37,6 +37,8 @@ class TaskSubmission(UniversalIdModel, TimeStampedModel):
     submitted_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
 
+    # add a field to state challenges faced
+
     class Meta:
         unique_together = ["task", "student"]
 

@@ -2,8 +2,7 @@ from django.urls import path
 from tasks.views import (
     TaskCreateView,
     TaskDetailView,
-    TaskSubmissionCreateView,
-    TaskSubmissionApproveView,
+    TaskSubmissionDetailView,
     TaskSubmissionListView,
     task_submission_create,
     task_list,
@@ -28,13 +27,8 @@ urlpatterns = [
         name="task-submission-create",
     ),
     path(
-        "activity/tasks/submissions/<str:pk>/approve/",
-        TaskSubmissionApproveView.as_view(),
-        name="task-submission-approve",
-    ),
-    path(
-        "activity/tasks/submissions/<str:pk>/disapprove/",
-        TaskSubmissionApproveView.as_view(),
-        name="task-submission-disapprove",
+        "tasks/<str:pk>/detail/",
+        TaskSubmissionDetailView.as_view(),
+        name="submission-detail",
     ),
 ]

@@ -20,7 +20,7 @@
     <hr>
     {% if tasks %}
     <p>
-        You currently have {{tasks|length}} {% if units|length > 1 %}units{% else %}unit{%endif%}.
+        You currently have {{tasks|length}} {% if tasks|length > 1 %}tasks{% else %}task{%endif%}.
     </p>
     <div class="container">
         <div class="table-responsive">
@@ -71,7 +71,7 @@
     </div>
     {% else %}
     <p class="text-start border rounded w-100 p-3 bg-info text-dark ">
-        No units yet
+        No tasks yet
     </p>
     {% endif %}
 </div>
