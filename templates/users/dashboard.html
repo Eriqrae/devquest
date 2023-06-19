@@ -5,6 +5,58 @@
 
 {% block content %}
 <div class="container-fluid">
-
+    {% if user.is_student %}
+    <div class="row">
+        <div class="col">
+            <h4>Pending Tasks</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Created By</th>
+                    </thead>
+                    {% for task in tasks %}
+                    <tbody>
+                        <td>
+                            <a href="{% url 'tasks:task-list' %}">{{ task.title }}</a>
+                        </td>
+                        <td>
+                            {{ task.description }}
+                        </td>
+                        <td>
+                            {{task.created_by.get_full_name}}
+                        </td>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="col">
+            <h4>Units</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead>
+                        <th>Name</th>
+                        <th>Duration</th>
+                        <th>Instructor</th>
+                    </thead>
+                    {% for unit in units %}
+                    <tbody>
+                        <td>
+                            <a href="{% url 'courses:unit-list' %}">{{unit.name}}</a>
+                        </td>
+                        <td>{{unit.duration}}</td>
+                        <td>
+                            <a
+                                href="{% url 'users:teacher-profile' unit.created_by.id %}">{{unit.created_by.get_full_name}}</a>
+                        </td>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
