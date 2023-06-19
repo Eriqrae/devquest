@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Submitted Tasks{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h5>
+        Submitted Tasks created from students
+    </h5>
+    {% if submissions %}
+    <p>
+        You currently have {{submissions|length}} {% if submissions|length > 1 %}submissions
+        {%else%}
+        submission
+        {%endif%}.
+    </p>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <th>Task</th>
+                    <th>Submitted By</th>
+                    <th>Submitted At</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </thead>
+                {% for submission in submissions %}
+                <tbody>
+                    <tr>
+                        <td>{{submission.task.title}}</td>
+                        <td>{{ submission.student.email }}</td>
+                        <td>{{ submission.submitted_at }}</td>
+
+                        {% if submission.is_approved %}
+                        <td>
+                            Approved
+                        </td>
+                        {% else %}
+                        <td>
+                            Disapproved
+                        </td>
+                        {% endif %}
+
+                        <td>
+                            <a class="btn btn-primary border p-2"
+                                href="{%url 'tasks:submission-detail' submission.id%}">
+                                <i class="bi bi-info-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+    {%else%}
+    <p class="text-start border rounded w-100 p-3 bg-info text-dark ">
+        No submissions yet
+    </p>
+    {%endif%}
+</div>
+{% endblock %}

@@ -20,12 +20,24 @@ from django.contrib.auth import get_user_model
 
 from users.forms import TeacherCreationForm, StudentCreationForm, SupervisorCreationForm
 from users.models import Teacher, Student
+from tasks.models import Task
+from courses.models import Unit
 
 User = get_user_model()
 
+
 @login_required
 def dashboard(request):
-    return render(request, "users/dashboard.html")
+    units = Unit.objects.all()[0:3]
+    tasks = Task.objects.all()[0:3]
+    return render(
+        request,
+        "users/dashboard.html",
+        {
+            "tasks": tasks,
+            "units": units,
+        },
+    )
 
 
 class UserListView(UserPassesTestMixin, ListView, LoginRequiredMixin):
