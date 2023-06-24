@@ -22,6 +22,11 @@ class Task(UniversalIdModel, TimeStampedModel):
         default="pending",
     )
 
+    class Meta:
+        ordering = [
+            "-created_at",
+        ]
+
     def is_submitted_by(self, student):
         return TaskSubmission.objects.filter(task=self, student=student).exists()
 
@@ -38,6 +43,11 @@ class TaskSubmission(UniversalIdModel, TimeStampedModel):
     is_approved = models.BooleanField(default=False)
 
     # add a field to state challenges faced
+
+    class Meta:
+        ordering = [
+            "-created_at",
+        ]
 
     class Meta:
         unique_together = ["task", "student"]

@@ -46,6 +46,11 @@ class Unit(UniversalIdModel, TimeStampedModel):
         AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="units"
     )
 
+    class Meta:
+        ordering = [
+            "-created_at",
+        ]
+
     def __str__(self) -> str:
         return self.name
 
