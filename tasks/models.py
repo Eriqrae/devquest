@@ -46,7 +46,7 @@ class TaskSubmission(UniversalIdModel, TimeStampedModel):
 
     class Meta:
         ordering = [
-            "-created_at",
+            "-submitted_at",
         ]
 
     class Meta:
