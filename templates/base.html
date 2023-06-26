@@ -104,6 +104,9 @@
                                 <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:task-list' %}">Tasks</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'reports:myreports' %}">Reports</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" aria-current="page"
                                     href="{% url 'courses:unit-list' %}">Units</a>
                             </li>
@@ -144,7 +147,7 @@
                 </div>
             </div>
             {% endif %}
-            <div class="container">
+            <div class="container-fluid">
                 {% if messages %}
                 <div>
                     {% for message in messages %}

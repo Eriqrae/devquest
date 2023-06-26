@@ -6,9 +6,23 @@
 {% block content %}
 <div class="container-fluid">
     {% if user.is_student %}
+    <div class="row mt-2 mb-2">
+        <div class="col">
+            <h5>
+                Your Dashboard
+            </h5>
+        </div>
+        <div class="col">
+            <p class="text-end">
+                <a class="border rounded bg-success p-2 text-white text-decoration-none"
+                    href="{%url 'reports:report-create'%}">Create Report</a>
+            </p>
+        </div>
+    </div>
+    <hr>
     <div class="row">
         <div class="col">
-            <h4>Pending Tasks</h4>
+            <h6>Pending Tasks</h6>
             <div class="table-responsive">
                 <table class="table table-bordered align-middle">
                     <thead>
@@ -33,7 +47,7 @@
             </div>
         </div>
         <div class="col">
-            <h4>Units</h4>
+            <h6>Units</h6>
             <div class="table-responsive">
                 <table class="table table-bordered align-middle">
                     <thead>
@@ -56,6 +70,52 @@
                 </table>
             </div>
         </div>
+    </div>
+    {% endif %}
+    {% if user.is_teacher %}
+    <div class="container-fluid">
+        <h5 class="mt-2 mb-2">
+            Reports
+        </h5>
+        {% if entries %}
+        {{entries|length}} {% if entries|length > 1 %}reports{% else %}report{%endif%} logged in
+
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead>
+                        <th>Activity</th>
+                        <th>Problems</th>
+                        <th>Solutions</th>
+                        <th>Time created</th>
+                        <th>Response</th>
+                        <th>Time updated</th>
+                        <th>Action</th>
+                    </thead>
+                    {% for entry in entries %}
+                    <tbody>
+                        <tr>
+                            <td>{{entry.activity}}</td>
+                            <td>{{entry.problems}}</td>
+                            <td>{{entry.solutions}}</td>
+                            <td>{{entry.created_at}}</td>
+                            <td>{{entry.response}}</td>
+                            <td>{{entry.updated_at}}</td>
+                            <td><a class="btn btn-primary border p-2" href="{%url 'reports:report-update' report.id%}">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {%endfor%}
+                </table>
+            </div>
+        </div>
+        {%else%}
+        <p class="text-start border rounded w-100 p-3 bg-warning text-dark ">
+            No reports yet
+        </p>
+        {% endif %}
     </div>
     {% endif %}
 </div>

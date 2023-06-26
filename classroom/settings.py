@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "users",
     "courses",
     "tasks",
+    "reports",
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"

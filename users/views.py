@@ -22,6 +22,7 @@ from users.forms import TeacherCreationForm, StudentCreationForm, SupervisorCrea
 from users.models import Teacher, Student
 from tasks.models import Task
 from courses.models import Unit
+from reports.models import Report
 
 User = get_user_model()
 
@@ -30,12 +31,16 @@ User = get_user_model()
 def dashboard(request):
     units = Unit.objects.all()[0:3]
     tasks = Task.objects.all()[0:3]
+    reports = Report.objects.filter(student=request.user)
+    entries = Report.objects.all()
     return render(
         request,
         "users/dashboard.html",
         {
             "tasks": tasks,
             "units": units,
+            "reports": reports,
+            "entries": entries,
         },
     )
 
