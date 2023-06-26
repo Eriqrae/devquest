@@ -46,10 +46,8 @@ class TaskSubmission(UniversalIdModel, TimeStampedModel):
 
     class Meta:
         ordering = [
-            "-submitted_at",
+            "-created_at",
         ]
-
-    class Meta:
         unique_together = ["task", "student"]
 
     def __str__(self) -> str:
