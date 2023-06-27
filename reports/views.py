@@ -3,6 +3,9 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 from reports.models import Report
 from reports.forms import ReportForm, ReportResponseForm
@@ -30,6 +33,10 @@ def create_report(request):
     else:
         form = ReportForm()
     return render(request, "reports/report_entry_form.html", {"form": form})
+
+
+class CreateReportView:
+    model = Report
 
 
 @login_required
@@ -67,8 +74,28 @@ def update_report(request, report_id):
         form = ReportResponseForm(request.POST, instance=report)
         if form.is_valid():
             form.save()
-            return redirect("reports:entries", student_id=report.student.id)
+            # return redirect("users:dashboard", student_id=report.student.id)
+            messages.success(request, "Solution added successfully")
+            return redirect("users:dashboard")
     else:
         form = ReportResponseForm()
 
-    return render(request, "reports/report_entry_update.html", {"report": report, "form": form})
+    return render(
+        request, "reports/report_entry_update.html", {"report": report, "form": form}
+    )
+
+
+class ReportTeacherUpdateView(
+    SuccessMessageMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView
+):
+    model = Report
+    fields = [
+        "response",
+    ]
+    context_object_name = "report"
+    success_message = "Response saved successfully"
+    template_name = "reports/report_response.html"
+    success_url = reverse_lazy("users:dashboard")
+
+    def test_func(self):
+        return self.request.user.is_staff

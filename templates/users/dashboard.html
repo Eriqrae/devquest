@@ -78,17 +78,17 @@
             Reports
         </h5>
         {% if entries %}
-        {{entries|length}} {% if entries|length > 1 %}reports{% else %}report{%endif%} logged in
+        {{entries|length}} {% if entries|length > 1 %}reports{% else %}report{%endif%} logged in.
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="table-responsive">
                 <table class="table table-bordered align-middle">
                     <thead>
                         <th>Activity</th>
                         <th>Problems</th>
                         <th>Solutions</th>
-                        <th>Time created</th>
                         <th>Response</th>
+                        <th>Time created</th>
                         <th>Time updated</th>
                         <th>Action</th>
                     </thead>
@@ -98,10 +98,10 @@
                             <td>{{entry.activity}}</td>
                             <td>{{entry.problems}}</td>
                             <td>{{entry.solutions}}</td>
-                            <td>{{entry.created_at}}</td>
                             <td>{{entry.response}}</td>
+                            <td>{{entry.created_at}}</td>
                             <td>{{entry.updated_at}}</td>
-                            <td><a class="btn btn-primary border p-2" href="{%url 'reports:report-update' report.id%}">
+                            <td><a class="btn btn-primary border p-2" href="{%url 'reports:report-update' entry.id%}">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                             </td>
