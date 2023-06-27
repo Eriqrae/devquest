@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Report{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-10 mx-auto">
+        <h3 class="mt-2">Report</h3>
+        <form enctype="multipart/form-data" action="" method="post">
+            {% csrf_token %}
+            <div class="form-floating">
+                {{ form.activity|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.problems|as_crispy_field }}
+            </div>
+            <div class="form-floating">
+                {{ form.solutions|as_crispy_field }}
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Submit Report</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

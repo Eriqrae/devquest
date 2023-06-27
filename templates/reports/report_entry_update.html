@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Update {{report.student}}{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <h5>
+        Update {{report.student}} report
+    </h5>
+    <hr>
+    <p><strong>Activity: </strong>{{report.activity}}</p>
+    <p><strong>Problems: </strong>{{report.problems}}</p>
+    <p><strong>Solutions: </strong>{{report.solutions}}</p>
+    <p><strong>Response: </strong>{{report.response}}</p>
+
+    <hr>
+
+    <div class="mt-2">
+        <h4>Provide Response</h4>
+        <form action="." method="post">
+            {% csrf_token %}
+            <div class="form-floating">
+                {{form.response|as_crispy_field}}
+            </div>
+            <button class="btn btn-primary w-100" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

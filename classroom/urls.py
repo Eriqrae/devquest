@@ -9,5 +9,6 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path("learn/", include("courses.urls")),
     path("activity/", include("tasks.urls")),
+    path("reports/", include("reports.urls")),
     path("", TemplateView.as_view(template_name="landing.html"), name="landing"),
 ]

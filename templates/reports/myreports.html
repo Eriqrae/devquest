@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports - {{request.user.first_name}}{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row mt-2">
+        <div class="col">
+            <h5>
+                Your Reports overtime
+            </h5>
+        </div>
+        <div class="col">
+            <p class="text-end">
+                <a class="border rounded bg-success p-2 text-white text-decoration-none"
+                    href="{%url 'reports:report-create'%}">Create Report</a>
+            </p>
+        </div>
+    </div>
+    {% if reports %}
+    <p>
+        {{reports|length}} {% if reports|length > 1 %}reports{% else %}report{%endif%} logged in
+    </p>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+                <thead>
+                    <th>Activity</th>
+                    <th>Problems</th>
+                    <th>Solutions</th>
+                    <th>Response</th>
+                    <th>Time created</th>
+                    <th>Time updated</th>
+                    <!-- <th>Action</th> -->
+                </thead>
+                {% for report in reports %}
+                <tbody>
+                    <tr>
+                        <td>{{report.activity}}</td>
+                        <td>{{report.problems}}</td>
+                        <td>{{report.solutions}}</td>
+                        <td>{{report.response}}</td>
+                        <td>{{report.created_at}}</td>
+                        <td>{{report.updated_at}}</td>
+                        <!-- <td><a class="btn btn-primary border p-2" href="{%url 'reports:edit-report' report.id%}">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </td> -->
+                    </tr>
+                </tbody>
+                {%endfor%}
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-start border rounded w-100 p-3 bg-warning text-dark ">
+        No reports yet
+    </p>
+    {% endif %}
+</div>
+{% endblock %}
