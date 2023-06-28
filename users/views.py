@@ -30,7 +30,7 @@ User = get_user_model()
 @login_required
 def dashboard(request):
     units = Unit.objects.all()[0:3]
-    tasks = Task.objects.all()[0:3]
+    tasks = Task.objects.all()
     reports = Report.objects.filter(student=request.user)
     entries = Report.objects.all()
     return render(

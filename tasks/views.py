@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
+from django.utils.timezone import now
 
 from tasks.models import Task, TaskSubmission
 from courses.decorators import student_required, teacher_required
@@ -20,7 +21,11 @@ def task_list(request):
     task_submissions = TaskSubmission.objects.filter(student=student)
     submitted_tasks = [submission.task for submission in task_submissions]
 
-    context = {"tasks": tasks, "submitted_tasks": submitted_tasks}
+    context = {
+        "tasks": tasks,
+        "submitted_tasks": submitted_tasks,
+        "now": now(),
+    }
 
     return render(request, "tasks/task_list.html", context)
 
