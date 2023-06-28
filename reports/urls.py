@@ -5,6 +5,8 @@ from reports.views import (
     edit_report,
     teacher_view_log_entries,
     update_report,
+    teacher_log_reports,
+    report_list,
 )
 
 app_name = "reports"
@@ -15,4 +17,5 @@ urlpatterns = [
     path("edit/<str:id>/", edit_report, name="edit-report"),
     path("reports/<str:student_id>/", teacher_view_log_entries, name="reports"),
     path("update/<str:report_id>/", update_report, name="report-update"),
+    path('log-reports/', report_list, name='log-reports'),
 ]

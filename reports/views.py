@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.db.models import Prefetch
+from django.conf import settings
+
 from reports.models import Report
 from reports.forms import ReportForm, ReportResponseForm
 from courses.decorators import teacher_required
@@ -73,4 +76,53 @@ def update_report(request, report_id):
 
     return render(
         request, "reports/report_entry_update.html", {"report": report, "form": form}
+    )
+
+
+@login_required
+@teacher_required
+def teacher_log_reports(request):
+    # User = settings.AUTH_USER_MODEL
+    try:
+        students = User.objects.all().prefetch_related(
+            Prefetch("log_entries", queryset=Report.objects.order_by("-created_at"))
+        )
+    except User.DoesNotExist:
+        students = []
+    return render(request, "reports/reports.html", {"students": students})
+
+
+# def report_list(request):
+#     students = User.objects.all()
+#     reports = Report.objects.filter(student=students).order_by("-created_at")
+
+#     return render(
+#         request, "reports/reports.html", {"students": students, "reports": reports}
+#     )
+
+# def report_list(request):
+#     students = User.objects.all()
+#     reports = {}
+
+#     for student in students:
+#         student_reports = Report.objects.filter(student=student).order_by("-created_at")
+#         reports[student] = student_reports
+
+#     return render(request, "reports/reports.html", {"students": students, "reports": reports})
+
+# def report_list(request):
+#     students = User.objects.all()
+
+#     return render(
+#         request, "reports/reports.html", {"students": students}
+#     )
+
+
+def report_list(request):
+    students = User.objects.filter(is_student=True).prefetch_related(
+        Prefetch("report_set", queryset=Report.objects.order_by("-created_at"))
+    )
+
+    return render(
+        request, "reports/reports.html", {"students": students}
     )

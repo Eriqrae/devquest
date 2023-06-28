@@ -33,7 +33,7 @@ def dashboard(request):
     units = Unit.objects.all()[0:3]
     tasks = Task.objects.all()[0:6]
     reports = Report.objects.filter(student=request.user)
-    entries = Report.objects.all()
+    entries = Report.objects.all()[0:9]
     students = Student.objects.all()
     return render(
         request,

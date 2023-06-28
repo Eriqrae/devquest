@@ -116,7 +116,12 @@
                                 <a class="nav-link border w-100 rounded mb-2"
                                     href="{% url 'courses:lessons-list' %}">Lessons</a>
                             </li>
+
+
                             {% elif user.is_teacher or user.is_supervisor %}
+                            <li class="nav-item">
+                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'reports:log-reports' %}">Reports</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:mytasks' %}">Tasks</a>
                             </li>
@@ -140,6 +145,8 @@
                                 <a class="nav-link border w-100 rounded mb-2"
                                     href="{% url 'courses:lessons-list' %}">Other Lessons</a>
                             </li>
+
+
                             {% elif user.is_supervisor or user.is_staff %}
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" href="#">Disabled</a>

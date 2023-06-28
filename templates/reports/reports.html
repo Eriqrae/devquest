@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports List{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h5 class="mt-2 mb-3">
+        Reports arranged according to each student
+    </h5>
+    <hr>
+    {% for student in students %}
+    <h6>
+        {{ student.email }}
+    </h6>
+    {% for report in student.report_set.all %}
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead>
+                <th>Activity</th>
+                <th>Problems</th>
+                <th>Solutions</th>
+                <th>Response</th>
+                <th>Time created</th>
+                <th>Time updated</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{report.activity}}</td>
+                    <td>{{report.problems}}</td>
+                    <td>{{report.solutions}}</td>
+                    <td>{{report.response}}</td>
+                    <td>{{report.created_at}}</td>
+                    <td>{{report.updated_at}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    {% empty %}
+    <p class="text-start border rounded w-100 p-3 bg-info text-dark ">
+        No reports yet
+    </p>
+    {% endfor %}
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}
