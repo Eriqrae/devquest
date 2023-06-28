@@ -70,7 +70,7 @@ def update_report(request, report_id):
             form.save()
             # return redirect("users:dashboard", student_id=report.student.id)
             messages.success(request, "Solution added successfully")
-            return redirect("users:dashboard")
+            return redirect("reports:log-reports")
     else:
         form = ReportResponseForm()
 

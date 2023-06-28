@@ -22,6 +22,7 @@
                 <th>Response</th>
                 <th>Time created</th>
                 <th>Time updated</th>
+                <th>Action</th>
             </thead>
             <tbody>
                 <tr>
@@ -31,6 +32,10 @@
                     <td>{{report.response}}</td>
                     <td>{{report.created_at}}</td>
                     <td>{{report.updated_at}}</td>
+                    <td><a class="btn btn-primary border p-2" href="{%url 'reports:report-update' report.id%}">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>
