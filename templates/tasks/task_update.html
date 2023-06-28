@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Create Task{% endblock %}
+{% block title %}Update Task{% endblock %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
     <div class="col-md-10 mx-auto">
-        <h3 class="mt-2">Create a task</h3>
+        <h3 class="mt-2">Update {{task.title}}</h3>
         <form enctype="multipart/form-data" action="" method="post">
             {% csrf_token %}
             <div class="form-floating">

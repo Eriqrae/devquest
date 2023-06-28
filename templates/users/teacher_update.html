@@ -20,6 +20,9 @@
                 {{ form.qualifications|as_crispy_field }}
             </div>
             <div class="form-floating">
+                {{ form.github|as_crispy_field }}
+            </div>
+            <div class="form-floating">
                 {{ form.about|as_crispy_field }}
             </div>
             <button class="btn btn-primary" type="submit">Update</button>

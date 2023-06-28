@@ -27,6 +27,7 @@
             <table class="table table-bordered align-middle">
                 <thead>
                     <th>Title</th>
+                    <th>Deadline</th>
                     <th>Description</th>
                     <th>Document</th>
                     <th>Task Link</th>
@@ -36,6 +37,7 @@
                 <tbody>
                     <tr>
                         <td>{{ task.title }}</td>
+                        <td>{{task.deadline}}</td>
                         <td>{{ task.description }}</td>
 
                         {% if task.document %}
@@ -55,7 +57,7 @@
                         {% endif %}
 
                         <td>
-                            <a class="btn btn-primary border p-2" href=""><i class="bi bi-pencil-square"></i></a>
+                            <a class="btn btn-primary border p-2" href="{% url 'tasks:task-update' task.id %}"><i class="bi bi-pencil-square"></i></a>
                             <a class="btn btn-danger border p-2" href="">
                                 <i class="bi bi-trash3"></i>
                             </a>

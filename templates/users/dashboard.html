@@ -4,7 +4,7 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container">
     {% if user.is_student %}
     <div class="row mt-2 mb-2">
         <div class="col">
@@ -20,56 +20,63 @@
         </div>
     </div>
     <hr>
-    <div class="row">
-        <div class="col">
-            <h6>Pending Tasks</h6>
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle">
-                    <thead>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Created By</th>
-                    </thead>
-                    {% for task in tasks %}
-                    <tbody>
-                        <td>
-                            <a href="{% url 'tasks:task-list' %}">{{ task.title }}</a>
-                        </td>
-                        <td>
-                            {{ task.description }}
-                        </td>
-                        <td>
-                            {{task.created_by.get_full_name}}
-                        </td>
-                    </tbody>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
-        <div class="col">
-            <h6>Units</h6>
-            <div class="table-responsive">
-                <table class="table table-bordered align-middle">
-                    <thead>
-                        <th>Name</th>
-                        <th>Duration</th>
-                        <th>Instructor</th>
-                    </thead>
-                    {% for unit in units %}
-                    <tbody>
-                        <td>
-                            <a href="{% url 'courses:unit-list' %}">{{unit.name}}</a>
-                        </td>
-                        <td>{{unit.duration}}</td>
-                        <td>
-                            <a
-                                href="{% url 'users:teacher-profile' unit.created_by.id %}">{{unit.created_by.get_full_name}}</a>
-                        </td>
-                    </tbody>
-                    {% endfor %}
-                </table>
-            </div>
-        </div>
+    <h6>Pending Tasks</h6>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead>
+                <th>Title</th>
+                <th>Time Remaining</th>
+                <th>Status</th>
+                <th>Created By</th>
+            </thead>
+            {% for task in tasks %}
+            <tbody>
+                <td>
+                    <a href="{% url 'tasks:task-list' %}">{{ task.title }}</a>
+                </td>
+                <td>
+                    {% if task.deadline < now %} Deadline Passed {% else %} {{ task.deadline|timeuntil:now }} {% endif %} </td>
+                <td>
+                    {% if task in submitted_tasks %}
+                    <i class="bi bi-check-square-fill">Submitted</i>
+                    {% elif task.deadline < now %} <button class="btn btn-primary border p-2" disabled>
+                        <i class="bi bi-send">Overdue</i>
+                        </button>
+                        {% else %}
+                        <a class="btn btn-primary border p-2" href="{% url 'tasks:task-submission-create' task.id %}">
+                            <i class="bi bi-send">Submit</i>
+                        </a>
+                        {% endif %}
+                </td>
+                <td>
+                    {{task.created_by.get_full_name}}
+                </td>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+
+    <hr>
+    <h6>Units</h6>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead>
+                <th>Name</th>
+                <th>Duration</th>
+                <th>Instructor</th>
+            </thead>
+            {% for unit in units %}
+            <tbody>
+                <td>
+                    <a href="{% url 'courses:unit-list' %}">{{unit.name}}</a>
+                </td>
+                <td>{{unit.duration}}</td>
+                <td>
+                    <a href="{% url 'users:teacher-profile' unit.created_by.id %}">{{unit.created_by.get_full_name}}</a>
+                </td>
+            </tbody>
+            {% endfor %}
+        </table>
     </div>
     {% endif %}
     {% if user.is_teacher %}

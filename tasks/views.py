@@ -5,10 +5,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils import timezone
+from django.utils.timezone import now
 
 from tasks.models import Task, TaskSubmission
 from courses.decorators import student_required, teacher_required
-from tasks.forms import TaskSubmissionForm
+from tasks.forms import TaskSubmissionForm, TaskForm
 
 
 @login_required
@@ -19,7 +21,11 @@ def task_list(request):
     task_submissions = TaskSubmission.objects.filter(student=student)
     submitted_tasks = [submission.task for submission in task_submissions]
 
-    context = {"tasks": tasks, "submitted_tasks": submitted_tasks}
+    context = {
+        "tasks": tasks,
+        "submitted_tasks": submitted_tasks,
+        "now": now(),
+    }
 
     return render(request, "tasks/task_list.html", context)
 
@@ -33,17 +39,17 @@ def mytasks(request):
 
 class TaskCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Task
-    fields = [
-        "title",
-        "description",
-        "document",
-        "task_link",
-    ]
+    form_class = TaskForm
     template_name = "tasks/task_create.html"
     success_message = "Task Created"
     success_url = reverse_lazy("tasks:mytasks")
 
     def form_valid(self, form):
+        deadline = form.cleaned_data.get("deadline")
+        if deadline and deadline < timezone.now():
+            form.add_error("deadline", "The deadline cannot be a past date.")
+            return self.form_invalid(form)
+
         form.instance.created_by = self.request.user
         return super().form_valid(form)
 
@@ -54,6 +60,17 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "task"
 
 
+class TaskUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "tasks/task_update.html"
+    success_message = "Task Updated"
+    success_url = reverse_lazy("tasks:mytasks")
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+
 @login_required
 @student_required
 def task_submission_create(request, task_id):
@@ -62,6 +79,11 @@ def task_submission_create(request, task_id):
     # Check if the current user has already submitted the task
     if TaskSubmission.objects.filter(task=task, student=request.user).exists():
         messages.error(request, "You have already submitted this task.")
+        return redirect("tasks:task-list")
+
+    # Check if the task is past the deadline
+    if task.deadline and task.deadline < timezone.now():
+        messages.error(request, "The task submission deadline has passed.")
         return redirect("tasks:task-list")
 
     if request.method == "POST":

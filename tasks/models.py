@@ -1,5 +1,6 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
+from django.utils import timezone
 
 from classroom.settings import AUTH_USER_MODEL
 from users.abstracts import UniversalIdModel, TimeStampedModel
@@ -21,6 +22,8 @@ class Task(UniversalIdModel, TimeStampedModel):
         ],
         default="pending",
     )
+    deadline = models.DateTimeField(blank=True, null=True)
+    overdue = models.BooleanField(default=False)
 
     class Meta:
         ordering = [
@@ -29,6 +32,13 @@ class Task(UniversalIdModel, TimeStampedModel):
 
     def is_submitted_by(self, student):
         return TaskSubmission.objects.filter(task=self, student=student).exists()
+
+    def save(self, *args, **kwargs):
+        if self.deadline and self.deadline < timezone.now():
+            self.overdue = True
+        else:
+            self.overdue = False
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return self.title
