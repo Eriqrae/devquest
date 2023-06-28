@@ -97,6 +97,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered border-primary align-middle">
                     <thead class="table-info border-primary">
+                        <th>Student</th>
                         <th>Activity</th>
                         <th>Problems</th>
                         <th>Solutions</th>
@@ -108,6 +109,10 @@
                     {% for entry in entries %}
                     <tbody>
                         <tr>
+                            <td>
+                                <a
+                                    href="{% url 'users:student-profile' entry.student.id %}">{{entry.student}}</a>
+                            </td>
                             <td>{{entry.activity}}</td>
                             <td>{{entry.problems}}</td>
                             <td>{{entry.solutions}}</td>
