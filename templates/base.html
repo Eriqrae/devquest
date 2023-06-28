@@ -101,10 +101,12 @@
                         <ul class="nav flex-column">
                             {% if user.is_student or user.is_supervisor %}
                             <li class="nav-item">
-                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:task-list' %}">Tasks</a>
+                                <a class="nav-link border w-100 rounded mb-2"
+                                    href="{% url 'tasks:task-list' %}">Tasks</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'reports:myreports' %}">Reports</a>
+                                <a class="nav-link border w-100 rounded mb-2"
+                                    href="{% url 'reports:myreports' %}">Reports</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" aria-current="page"
@@ -119,7 +121,8 @@
                                 <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:mytasks' %}">Tasks</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link border w-100 rounded mb-2" href="{% url 'tasks:task-submission-list' %}">Submitted Tasks</a>
+                                <a class="nav-link border w-100 rounded mb-2"
+                                    href="{% url 'tasks:task-submission-list' %}">Submitted Tasks</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link border w-100 rounded mb-2" href="{% url 'courses:my-units' %}">My
@@ -151,8 +154,9 @@
                 {% if messages %}
                 <div>
                     {% for message in messages %}
-                    <div class="bg-success p-3 mt-3 mb-3 rounded text-dark">
-                        {{message}}
+                    <div
+                        class="p-3 mt-3 mb-3 rounded {% if message.tags == 'error' %}bg-danger text-white{% else %}bg-success text-dark{% endif %}">
+                        {{ message }}
                     </div>
                     {% endfor %}
                 </div>
