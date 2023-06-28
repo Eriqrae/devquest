@@ -35,7 +35,8 @@
                     <a href="{% url 'tasks:task-list' %}">{{ task.title }}</a>
                 </td>
                 <td>
-                    {% if task.deadline < now %} Deadline Passed {% else %} {{ task.deadline|timeuntil:now }} {% endif %} </td>
+                    {% if task.deadline < now %} Deadline Passed {% else %} {{ task.deadline|timeuntil:now }} {% endif%}
+                        </td>
                 <td>
                     {% if task in submitted_tasks %}
                     <i class="bi bi-check-square-fill">Submitted</i>
@@ -79,18 +80,23 @@
         </table>
     </div>
     {% endif %}
+
+
+    <!-- Teachers Dashboard -->
     {% if user.is_teacher %}
     <div class="container-fluid">
-        <h5 class="mt-2 mb-2">
-            Reports
-        </h5>
-        {% if entries %}
-        {{entries|length}} {% if entries|length > 1 %}reports{% else %}report{%endif%} logged in.
-
+        <h5 class="mt-2 mb-2">Your Dashboad</h5>
+        <hr>
         <div class="container-fluid">
+            <h5 class="mt-2 mb-2">
+                Reports
+            </h5>
+            {% if entries %}
+            {{entries|length}} {% if entries|length > 1 %}reports{% else %}report{%endif%} logged in.
+
             <div class="table-responsive">
-                <table class="table table-bordered align-middle">
-                    <thead>
+                <table class="table table-bordered border-primary align-middle">
+                    <thead class="table-info border-primary">
                         <th>Activity</th>
                         <th>Problems</th>
                         <th>Solutions</th>
@@ -117,12 +123,55 @@
                     {%endfor%}
                 </table>
             </div>
+            {%else%}
+            <p class="text-start border rounded w-100 p-3 bg-warning text-dark ">
+                No reports yet
+            </p>
+            {% endif %}
         </div>
-        {%else%}
-        <p class="text-start border rounded w-100 p-3 bg-warning text-dark ">
-            No reports yet
-        </p>
-        {% endif %}
+
+        <div class="container-fluid">
+            <h5 class="mt-2 mb-2">
+                Students
+            </h5>
+            {% if students %}
+            {{students|length}} {% if students|length > 1 %}students{% else %}student{%endif%}.
+            <div class="table-responsive">
+                <table class="table table-bordered border-primary align-middle">
+                    <thead class="table-info border-primary">
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Github</th>
+                    </thead>
+                    {%for student in students%}
+                    <tbody>
+                        <tr>
+                            <td>
+                                {{student.user.get_full_name}}
+                            </td>
+                            <td>{{student.user.email}}</td>
+                            <td>{{student.phonenumber}}</td>
+                            {% if student.github %}
+                            <td>
+                                <a href="{{student.github}}" target="_blank">Profile</a>
+                            </td>
+                            {% else %}
+                            <td>
+                                No profile
+                            </td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                    {%endfor%}
+                </table>
+            </div>
+            {% else %}
+            <p class="text-start border rounded w-100 p-3 bg-warning text-dark ">
+                No students yet
+            </p>
+            {% endif %}
+        </div>
     </div>
     {% endif %}
 </div>

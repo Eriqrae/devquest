@@ -34,6 +34,7 @@ def dashboard(request):
     tasks = Task.objects.all()[0:6]
     reports = Report.objects.filter(student=request.user)
     entries = Report.objects.all()
+    students = Student.objects.all()
     return render(
         request,
         "users/dashboard.html",
@@ -43,6 +44,7 @@ def dashboard(request):
             "units": units,
             "reports": reports,
             "entries": entries,
+            "students": students,
         },
     )
 
