@@ -9,6 +9,7 @@
         <table class="table table-bordered align-middle">
             <thead>
                 <th>Title</th>
+                <th>Deadline</th>
                 <th>Description</th>
                 <th>Document</th>
                 <th>Task Link</th>
@@ -19,6 +20,7 @@
             <tbody>
                 <tr>
                     <td>{{ task.title }}</td>
+                    <td>{{task.deadline}}</td>
                     <td>{{ task.description }}</td>
 
                     {% if task.document %}
