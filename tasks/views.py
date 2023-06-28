@@ -54,25 +54,6 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "task"
 
 
-class TaskSubmissionCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
-    model = TaskSubmission
-    fields = [
-        "document",
-        "answer",
-    ]
-    template_name = "tasks/task_submission_create.html"
-    success_message = "Task submitted"
-    success_url = reverse_lazy("tasks:task-list")
-
-    def form_valid(self, form):
-        task = Task.objects.get(pk=self.kwargs["pk"])
-        form.instance.task = task
-        form.instance.student = self.request.user
-        task.status = "submitted"
-        task.save()
-        return super().form_valid(form)
-
-
 @login_required
 @student_required
 def task_submission_create(request, task_id):
@@ -97,7 +78,7 @@ def task_submission_create(request, task_id):
 
             messages.success(request, "Task submitted successfully.")
             return redirect("tasks:task-list")
-        
+
     else:
         form = TaskSubmissionForm()
 
@@ -132,63 +113,3 @@ class TaskSubmissionDetailView(SuccessMessageMixin, LoginRequiredMixin, UpdateVi
     def get_queryset(self):
         # Only fetch the task submissions for the tasks created by the logged-in teacher
         return TaskSubmission.objects.filter(task__created_by=self.request.user)
-
-
-# class TaskSubmissionApproveView(UserPassesTestMixin, LoginRequiredMixin, DetailView):
-#     model = TaskSubmission
-#     template_name = "tasks/task_submission_approve.html"
-#     context_object_name = "submission"
-
-#     def test_func(self):
-#         return self.request.user == self.get_object().task.created_by
-
-#     def get_success_url(self):
-#         return "tasks:task-list"
-
-#     def post(self, request, *args, **kwargs):
-#         submission = self.get_object()
-#         action = request.POST.get("action")
-
-#         if action == "approve":
-#             self.approve_submission(submission)
-#         elif action == "disapprove":
-#             self.disapprove_submission(submission)
-
-#         return redirect(self.get_success_url())
-
-#     def approve_submission(self, submission):
-#         submission.is_approved = True
-#         submission.task.status = "approved"
-#         submission.task.save()
-#         submission.save()
-
-#     def disapprove_submission(self, submission):
-#         submission.is_approved = False
-#         submission.task.status = "disapproved"
-#         submission.task.save()
-#         submission.save()
-
-
-class TaskSubmissionApproveView(DetailView):
-    model = TaskSubmission
-    template_name = "task/task_submission_approve.html"
-    context_object_name = "submission"
-
-    def post(self, request, pk):
-        submission = get_object_or_404(TaskSubmission, pk=pk)
-        action = request.POST.get("action")
-
-        if action == "approve":
-            self.approve_submission(submission)
-        elif action == "disapprove":
-            self.disapprove_submission(submission)
-
-        return redirect("tasks:task-submission-list")
-
-    def approve_submission(self, submission):
-        submission.status = "approved"
-        submission.save()
-
-    def disapprove_submission(self, submission):
-        submission.status = "disapproved"
-        submission.save()

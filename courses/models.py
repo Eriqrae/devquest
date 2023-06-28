@@ -19,9 +19,6 @@ class Resources(UniversalIdModel):
     def __str__(self) -> str:
         return self.name
 
-    def get_absolute_url(self):
-        return reverse("resources-detail", args=[str(self.id)])
-
 
 class Lesson(UniversalIdModel):
     topic = models.CharField(max_length=255)
@@ -33,9 +30,6 @@ class Lesson(UniversalIdModel):
 
     def __str__(self) -> str:
         return self.topic
-
-    def get_absolute_url(self):
-        return reverse("lesson-detail", args=[str(self.id)])
 
 
 class Unit(UniversalIdModel, TimeStampedModel):
@@ -53,6 +47,3 @@ class Unit(UniversalIdModel, TimeStampedModel):
 
     def __str__(self) -> str:
         return self.name
-
-    def get_absolute_url(self):
-        return reverse("unit-detail", args=[str(self.id)])

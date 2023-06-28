@@ -265,11 +265,6 @@ class UnitUpdateView(
     SuccessMessageMixin, UpdateView, LoginRequiredMixin, UserPassesTestMixin
 ):
     model = Unit
-    # fields = [
-    #     "name",
-    #     "duration",
-    #     "lessons",
-    # ]
     template_name = "courses/unit_update.html"
     success_message = "Unit Updated"
     success_url = reverse_lazy("courses:my-units")
