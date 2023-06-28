@@ -54,6 +54,7 @@ class Teacher(TimeStampedModel):
     )
     image = CloudinaryField("teacher_image", blank=True, null=True)
     phonenumber = models.BigIntegerField(default=0, blank=False)
+    github = models.URLField(max_length=255, blank=True, null=True)
     about = models.TextField(blank=True, null=True)
     qualifications = models.CharField(max_length=200, blank=True, null=True)
 
@@ -70,6 +71,7 @@ class Student(TimeStampedModel):
     )
     image = CloudinaryField("student_image", blank=True, null=True)
     phonenumber = models.BigIntegerField(default=0, blank=False)
+    github = models.URLField(max_length=255, blank=True, null=True)
     about = models.TextField(blank=True, null=True)
 
     def __str__(self) -> str:

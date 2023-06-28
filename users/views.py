@@ -16,6 +16,7 @@ from django.contrib.auth.mixins import (
 )
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.utils.timezone import now
 
 
 from users.forms import TeacherCreationForm, StudentCreationForm, SupervisorCreationForm
@@ -30,7 +31,7 @@ User = get_user_model()
 @login_required
 def dashboard(request):
     units = Unit.objects.all()[0:3]
-    tasks = Task.objects.all()
+    tasks = Task.objects.all()[0:6]
     reports = Report.objects.filter(student=request.user)
     entries = Report.objects.all()
     return render(
@@ -38,6 +39,7 @@ def dashboard(request):
         "users/dashboard.html",
         {
             "tasks": tasks,
+            "now": now(),
             "units": units,
             "reports": reports,
             "entries": entries,
@@ -92,8 +94,9 @@ class TeacherDetailView(LoginRequiredMixin, DetailView):
     fields = [
         "image",
         "phonenumber",
-        "about",
+        "github",
         "qualifications",
+        "about",
     ]
     template_name = "users/teacher_profile.html"
 
@@ -107,8 +110,9 @@ class TeacherUpdateView(
     fields = [
         "image",
         "phonenumber",
-        "about",
+        "github",
         "qualifications",
+        "about",
     ]
     template_name = "users/teacher_update.html"
     success_message = "Profile Updated Successfully"
@@ -158,6 +162,7 @@ class StudentDetailView(LoginRequiredMixin, DetailView):
     fields = [
         "image",
         "phonenumber",
+        "github",
         "about",
     ]
     template_name = "users/student_profile.html"
@@ -170,6 +175,7 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
     fields = [
         "image",
         "phonenumber",
+        "github",
         "about",
     ]
     template_name = "users/student_update.html"
