@@ -45,7 +45,7 @@ urlpatterns = [
         ResourcesDeleteView.as_view(),
         name="resources-delete",
     ),
-    # lessons urlsLessonCreateView.as_view()
+    # lessons urls
     path("mylessons/", mylessons, name="mylessons"),
     path("lesson/", LessonCreateView.as_view(), name="lessons-create"),
     path("lessons/", LessonListView.as_view(), name="lessons-list"),
