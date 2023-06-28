@@ -49,7 +49,7 @@
 
                     <td>
                         {% if task in submitted_tasks %}
-                        <i class="bi bi-check-square-fill">Submitted</i>
+                        <i class="bi bi-check-square-fill"></i>
                         {% elif task.deadline < now %} <button class="btn btn-primary border p-2" disabled>
                             <i class="bi bi-send">Overdue</i>
                             </button>
