@@ -155,7 +155,7 @@
                 <div>
                     {% for message in messages %}
                     <div
-                        class="p-3 mt-3 mb-3 rounded {% if message.tags == 'error' %}bg-danger text-white{% else %}bg-success text-dark{% endif %}">
+                        class="p-3 mt-3 mb-3 rounded {% if message.tags == 'error' %}bg-danger text-white{% else %}bg-success text-white{% endif %}">
                         {{ message }}
                     </div>
                     {% endfor %}

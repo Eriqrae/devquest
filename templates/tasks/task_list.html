@@ -6,8 +6,8 @@
 <div class="container-fluid">
     <h5 class="mt-2 mb-2">Tasks created</h5>
     <div class="table-responsive">
-        <table class="table table-bordered align-middle">
-            <thead>
+        <table class="table table-bordered border-primary align-middle">
+            <thead class="table-info border-dark">
                 <th>Title</th>
                 <th>Deadline</th>
                 <th>Time Remaining</th>
@@ -27,7 +27,6 @@
                         Deadline Passed 
                         {% else %} 
                         {{ task.deadline|timeuntil:now }}
-                        remaining 
                         {% endif %} 
                         </td>
                     <td>{{ task.description }}</td>
@@ -51,11 +50,14 @@
                     <td>
                         {% if task in submitted_tasks %}
                         <i class="bi bi-check-square-fill">Submitted</i>
-                        {% else %}
-                        <a class="btn btn-primary border p-2" href="{% url 'tasks:task-submission-create' task.id %}">
-                            <i class="bi bi-send">Submit</i>
-                        </a>
-                        {% endif %}
+                        {% elif task.deadline < now %} <button class="btn btn-primary border p-2" disabled>
+                            <i class="bi bi-send">Overdue</i>
+                            </button>
+                            {% else %}
+                            <a class="btn btn-primary border p-2" href="{% url 'tasks:task-submission-create' task.id %}">
+                                <i class="bi bi-send">Submit</i>
+                            </a>
+                            {% endif %}
                     </td>
                     <td>{{task.created_by.get_full_name}}</td>
 
