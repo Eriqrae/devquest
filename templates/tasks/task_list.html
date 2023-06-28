@@ -49,10 +49,12 @@
 
                     <td>
                         {% if task in submitted_tasks %}
-                        <i class="bi bi-check-square-fill"></i>
-                        {% elif task.deadline < now %} <button class="btn btn-primary border p-2" disabled>
-                            <i class="bi bi-send">Overdue</i>
-                            </button>
+                        <button class="btn btn-success border p-2">
+                            <i class="bi bi-check-square"></i>
+                        </button>
+                        {% elif task.deadline < now %} <a class="btn btn-danger border p-2" href="{% url 'tasks:task-submission-create' task.id %}">
+                            <i class="bi bi-stopwatch-fill"></i>
+                        </a>
                             {% else %}
                             <a class="btn btn-primary border p-2" href="{% url 'tasks:task-submission-create' task.id %}">
                                 <i class="bi bi-send"></i>
