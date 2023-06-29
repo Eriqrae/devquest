@@ -148,6 +148,7 @@
                         <th>Email</th>
                         <th>Contact</th>
                         <th>Github</th>
+                        <th>Last Login</th>
                     </thead>
                     {%for student in students%}
                     <tbody>
@@ -166,6 +167,7 @@
                                 No profile
                             </td>
                             {% endif %}
+                            <td>{{student.user.last_login}}</td>
                         </tr>
                     </tbody>
                     {%endfor%}
