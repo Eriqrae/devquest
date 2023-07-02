@@ -8,14 +8,29 @@
 <div class="container">
     <h4>Submission {{submission.task.title}} Details</h4>
     <p><strong>Student:</strong> {{submission.student.email}}</p>
+    {% if submission.links %}
+    <p>
+        <strong>Answer Link: </strong><a href="{{submission.links}}">Find here</a>
+    </p>
+    {% else %}
+    <p>
+        <strong>Answer Link: </strong>No external link
+    </p>
+    {% endif %}
     {% if submission.document %}
     <p>
         <strong>Document:</strong> <a href="{{submission.document.url}}">Find here</a>
     </p>
     {% else %}
-    <p>No file</p>
+    <p>
+        <strong>Document: </strong>No file provided
+    </p>
     {%endif%}
+    {% if submission.answer %}
     <p><strong>Answer:</strong> {{submission.answer}}</p>
+    {% else %}
+    <p><strong>Answer: </strong>No answer provided.</p>
+    {% endif %}
     <p><strong>Submit Time:</strong> {{submission.submitted_at}}</p>
 
     <div class="mt-2">
