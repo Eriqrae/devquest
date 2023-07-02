@@ -12,10 +12,14 @@ class TaskForm(forms.ModelForm):
             "document",
             "task_link",
         ]
-        widgets = {"deadline":forms.DateInput(attrs={"type": "datetime-local"})}
+        widgets = {"deadline": forms.DateInput(attrs={"type": "datetime-local"})}
 
 
 class TaskSubmissionForm(forms.ModelForm):
     class Meta:
         model = TaskSubmission
-        fields = ["document", "answer"]
+        fields = [
+            "links",
+            "document",
+            "answer",
+        ]
