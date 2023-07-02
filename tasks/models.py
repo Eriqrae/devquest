@@ -47,8 +47,23 @@ class Task(UniversalIdModel, TimeStampedModel):
 class TaskSubmission(UniversalIdModel, TimeStampedModel):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     student = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
-    document = CloudinaryField("submission", blank=True, null=True)
-    answer = models.TextField(blank=True, null=True)
+    links = models.URLField(
+        max_length=500,
+        null=True,
+        blank=True,
+        help_text="Enter the URL for additional resources or references related to your answer (e.g., GitHub link).",
+    )
+    document = CloudinaryField(
+        "submission",
+        blank=True,
+        null=True,
+        help_text="Upload any relevant documents or files that support your answer, if applicable.",
+    )
+    answer = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Provide a comprehensive and well-structured answer to the task, demonstrating your understanding and skills, if applicable",
+    )
     submitted_at = models.DateTimeField(auto_now_add=True)
     is_approved = models.BooleanField(default=False)
 

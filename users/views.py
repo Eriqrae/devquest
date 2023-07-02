@@ -21,7 +21,7 @@ from django.utils.timezone import now
 
 from users.forms import TeacherCreationForm, StudentCreationForm, SupervisorCreationForm
 from users.models import Teacher, Student
-from tasks.models import Task
+from tasks.models import Task, TaskSubmission
 from courses.models import Unit
 from reports.models import Report
 
@@ -31,10 +31,15 @@ User = get_user_model()
 @login_required
 def dashboard(request):
     units = Unit.objects.all()[0:3]
-    tasks = Task.objects.all()[0:6]
+    tasks = Task.objects.filter(status='pending').order_by('-created_at')[:3]
+
     reports = Report.objects.filter(student=request.user)
     entries = Report.objects.all()[0:9]
     students = Student.objects.all()
+    student = request.user
+
+    task_submissions = TaskSubmission.objects.filter(student=student)
+    submitted_tasks = [submission.task for submission in task_submissions]
     return render(
         request,
         "users/dashboard.html",
@@ -45,6 +50,7 @@ def dashboard(request):
             "reports": reports,
             "entries": entries,
             "students": students,
+            "submitted_tasks": submitted_tasks,
         },
     )
 
