@@ -37,6 +37,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "theclassroom.onrender.com",
     "127.0.0.1",
+    "devquest-i2ak.onrender.com",
 ]
 
 
@@ -85,6 +86,7 @@ CORS_ORIGIN_WHITELIST = [
     "https://theclassroom.onrender.com",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://devquest-i2ak.onrender.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -95,6 +97,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://theclassroom.onrender.com",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://devquest-i2ak.onrender.com",
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
