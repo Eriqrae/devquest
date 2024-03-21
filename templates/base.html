@@ -15,15 +15,15 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-md sticky-top navbar-dark" style="background-color: #123c66;">
+        <nav class="navbar navbar-expand-md sticky-top navbar-dark bg-success">
             <div class="container-fluid">
                 {% if user.is_authenticated %}
                 <a class="navbar-brand" href="{% url 'users:dashboard' %}">
-                    <img src="{% static '/images/Group2.svg' %}" alt="logo">
+                    DevQuest
                 </a>
                 {% else %}
                 <a class="navbar-brand" href="{% url 'landing' %}">
-                    <img src="{% static '/images/Group2.svg' %}" alt="logo">
+                    DevQuest
                 </a>
                 {% endif %}
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -93,7 +93,7 @@
                 <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
                     id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">The Classroom</h5>
+                        <h5 class="offcanvas-title" id="offcanvasScrollingLabel">DevQuest</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <hr>
@@ -175,8 +175,7 @@
         <hr>
         <footer class="mt-auto text-dark text-center">
             <p>
-                The Classroom | Dalienst Tech Africa<br>
-                Mombasa | Kenya | Africa | +254710584581
+                DevQuest
             </p>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
